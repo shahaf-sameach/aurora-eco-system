@@ -34,8 +34,6 @@ public class ProcuerVerticle extends AbstractVerticle{
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-
-
     @Override
     public void start() {
 
@@ -50,7 +48,7 @@ public class ProcuerVerticle extends AbstractVerticle{
         vertx.eventBus().consumer("events", msg -> {
             try {
                 String data = objectMapper.writeValueAsString(new Payload(msg.body().toString()));
-                KafkaProducerRecord<String, String> record = KafkaProducerRecord.create("test1", data);
+                KafkaProducerRecord<String, String> record = KafkaProducerRecord.create("raw-data", data);
                 producer.write(record, res -> {
                     if (((AsyncResult<RecordMetadata>) res).succeeded())
                         log.info("ddd");

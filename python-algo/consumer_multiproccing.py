@@ -27,7 +27,7 @@ def consume_data(id):
         producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
                                  value_serializer=lambda m: json.dumps(m).encode('ascii'))
 
-        print("consumer-[{}] ready...")
+        print("consumer-[{}] ready...".format(id))
         for message in consumer:
             print("pid {}".format(os.getpid()))
 
@@ -54,7 +54,6 @@ if __name__ == "__main__":
     for p in processes:
         p.start()
 
-    print("started {} processes".format(len(processes)))
     for p in processes:
         p.join()
 
